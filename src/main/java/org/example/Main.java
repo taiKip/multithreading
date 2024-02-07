@@ -10,13 +10,15 @@ public class Main {
           from a class that implements the said method
          */
 
+        move(
+                () -> {
+                    System.out.println("Car is moving");
+                }
+        );
 
-        Printable lambdaPrintable = (s)-> System.out.println("Meow" + s );
-printThing(lambdaPrintable);
     }
 
-
-    static void printThing(Printable thing) {
-        thing.print("!");
+    static void move(Vehicle vehicle) {
+        vehicle.move();
     }
 }
