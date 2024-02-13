@@ -4,21 +4,19 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-          lambda's allow us to pass an implementation
-          of a method instead of passing an object created
-          from a class that implements the said method
+        Cat myCat = new Cat();
+        /**
+         * @desc instead of sending an object that contains the action we just
+         * send the action itself
          */
-
-        move(
-                () -> {
-                    System.out.println("Car is moving");
-                }
+        Printable lambdaPrintable = (s)-> System.out.println("Meow!" + s);
+        printThing((s) ->
+                System.out.println("meow")
         );
-
+printThing(lambdaPrintable);
     }
 
-    static void move(Vehicle vehicle) {
-        vehicle.move();
+    public static void printThing(Printable thing) {
+        thing.print("s");
     }
 }
