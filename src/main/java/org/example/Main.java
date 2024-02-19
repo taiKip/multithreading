@@ -1,64 +1,33 @@
 package org.example;
 
+import java.sql.SQLOutput;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
-       var currentThread = Thread.currentThread();
-        System.out.println(currentThread.getClass().getName());
+        System.out.println("Main thread is running");
 
-        System.out.println(currentThread);
-        printThreadState(currentThread);
-
-        currentThread.setName("MainGuy");
-        currentThread.setPriority(Thread.MAX_PRIORITY);
-        printThreadState(currentThread);
-        CustomThread customThread = new CustomThread();
-        customThread.start();
-//        Runnable myRunnable = ()->{
-//            for(int i = 1;i<=8;i++){
-//                System.out.print(" 2 ");
-//               try{
-//TimeUnit.MILLISECONDS.sleep(250);
-//               }catch(InterruptedException e){
-//e.printStackTrace();
-//               }
-//            }
-//        };
-//
-//       Thread myThread = new Thread(myRunnable);
-//        myThread.start();
-        Thread myThread = new Thread(new MyCustomThread());
-        myThread.start();
-        for(int i = 1;i<= 3;i++){
-            System.out.print(" 0 ");
-            try{
-                TimeUnit.SECONDS.sleep(1);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
+        try {
+            System.out.println("Main thread is paused for one second;");
+            TimeUnit.MILLISECONDS.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-    }
-
-    public static void printThreadState(Thread thread){
-        System.out.println("-------------------");
-        System.out.println("Thread ID: " + thread.getId());
-        System.out.println("Thread Name: " + thread.getName());
-        System.out.println("Thread Priority: "+ thread.getPriority());
-        System.out.println("Thread State: " + thread.getState());
-        System.out.println("Thread Group: " + thread.getThreadGroup());
-        System.out.println("Thread is Alive: " + thread.isAlive());
-        System.out.println("--------------------");
-    }
-    public static  int printNumber(){
+Thread  thread = new Thread(()->{
+    String tname = Thread.currentThread().getName();
+    System.out.println(tname + " should take 10 dots to run");
+    for(int i = 0;i<10;i++){
+        System.out.print(". ");
         try{
-            return 3;
-        }catch (Exception e){
-            return  4;
-
-        }finally {
-            System.out.println("Hello world");
+            TimeUnit.MILLISECONDS.sleep(500);
+        }catch (InterruptedException e){
+            System.out.println("\nWhoops!! " + tname + " interrupted.");
         }
+    }
+    System.out.println("\n"+tname + " completed.");
+});
+        System.out.println(thread.getName() + " Starting");
+        thread.start();
+        System.out.println("Main thread will continue here");
     }
 }
